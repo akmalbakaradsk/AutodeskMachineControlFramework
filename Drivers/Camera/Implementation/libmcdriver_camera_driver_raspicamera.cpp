@@ -37,6 +37,7 @@ Abstract: This is a stub class definition of CDriver_RaspiCamera
 #include "libmcdriver_camera_pngimage.hpp"
 
 // Include custom headers here.
+#include "raspicam.h"
 
 
 using namespace LibMCDriver_Camera::Impl;

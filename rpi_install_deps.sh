@@ -1,4 +1,4 @@
-#sudo apt-get update
+sudo apt-get update
 echo 'Installing build-essential...'
 sudo apt install -y build-essential
 echo 'Installing cmake...'

@@ -32,7 +32,7 @@
 #include <mach/mach.h>
 #endif
 
-#include "serial/unix.h"
+#include "unix.h"
 
 #ifndef TIOCINQ
 #ifdef FIONREAD

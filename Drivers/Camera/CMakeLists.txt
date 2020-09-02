@@ -120,7 +120,13 @@ endforeach()
 ##########################################################################################
 ### Add custom code below
 ##########################################################################################
-
-
+set(EXT_LIB raspicam)
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../../Libraries/${EXT_LIB}" "${PROJECT_BINARY_DIR}/${EXT_LIB}")
+if(NOT TARGET ${EXT_LIB})
+	message(SEND_ERROR "Could not find library ${EXT_LIB} in CMake targets")
+else()
+	target_link_libraries(${DRIVERNAME} ${EXT_LIB})
+	get_target_property(raspicam_include_dirs ${EXT_LIB} INTERFACE_INCLUDE_DIRECTORIES)
+endif()
 
 

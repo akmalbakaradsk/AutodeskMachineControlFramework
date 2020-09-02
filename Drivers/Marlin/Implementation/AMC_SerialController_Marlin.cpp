@@ -142,21 +142,52 @@ namespace AMC {
 
 		// instead of waiting a fixed time wait until "start" or "" (after timeout) received from device??
 		//std::this_thread::sleep_for(std::chrono::milliseconds(500));
-		bool bAck = false;
-		while (!bAck) {
-			std::string sLineRead = m_pConnection->readline();
-			if (m_bDebug) {
-				std::cout << "RETURN: " << sLineRead << std::endl;
-			}
+		{
+			bool bAck = false;
+			while (!bAck)
+			{
+				std::string sLineRead = m_pConnection->readline();
+				if (m_bDebug)
+				{
+					std::cout << "RETURN: " << sLineRead << std::endl;
+				}
 
-			bAck = sLineRead.empty() || (sLineRead.find("start") != std::string::npos);
+				bAck = sLineRead.empty() || (sLineRead.find("start") != std::string::npos);
+			}
 		}
 
+		// Wait before sending
+		std::chrono::milliseconds wait_ms(1500);
+		std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now() + wait_ms;
+		std::cout << "Waiting for " << std::to_string(wait_ms.count()) << "ms" << std::endl;
+		while (std::chrono::system_clock::now() < end) {
+				std::string sLineRead = m_pConnection->readline();
+				if (m_bDebug)
+				{
+					std::cout << "RETURN: " << sLineRead << std::endl;
+				}
+		}
+		std::cout << "Done waiting" << std::endl;
 
 		// reset line number
 		std::stringstream sCommand;
 		sCommand << "M110 " << m_nLineNumber;
 		sendCommand(sCommand.str());
+
+		// Wait for M110 to return ok before proceeding
+		{
+			bool bAck = false;
+			while (!bAck)
+			{
+				std::string sLineRead = m_pConnection->readline();
+				if (m_bDebug)
+				{
+					std::cout << "RETURN: " << sLineRead << std::endl;
+				}
+
+				bAck = (sLineRead.find("ok N1") != std::string::npos);
+			}
+		}
 
 		m_nCurrentBufferSpace = 0;
 
