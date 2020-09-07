@@ -48,7 +48,7 @@ cd "$builddir"
 
 echo "Building Core Modules"
 cmake ..
-cmake --build . --config Debug
+cmake --build . --config Release
 
 #echo "Building Developer Package"
 # TODO: Copy files to builddir
