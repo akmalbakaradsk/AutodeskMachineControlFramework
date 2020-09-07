@@ -127,7 +127,7 @@
   	  </signaldefinition>	 
 
   	  <parametergroup name="comdata" description="COM Configuration">		
-		  <parameter name="port" description="COM Port" default="COM4" type="string" />
+		<parameter name="port" description="COM Port" default="COM4" type="string" />
   		<parameter name="baudrate" description="Baud rate" default="115200" type="int" />
 		<parameter name="connecttimeout" type="int" default="2000" description="Timeout [ms] for connecting printer" />
   	  </parametergroup>
