@@ -207,6 +207,7 @@ public:
 		// Load Toolpath into memory
 		auto sJobUUID = pStateEnvironment->GetStringParameter("jobinfo", "jobuuid");
 		auto pBuildJob = pStateEnvironment->GetBuildJob(sJobUUID);
+		// TODO: THIS IS WHERE THE SYSTEM CURRENTLY FAILS
 		pBuildJob->LoadToolpath();
 
 		// Find out layer count

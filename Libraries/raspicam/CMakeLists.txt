@@ -15,6 +15,9 @@ list(GET PROJECT_VERSION_PARTS 1 PROJECT_VERSION_MINOR)
 list(GET PROJECT_VERSION_PARTS 2 PROJECT_VERSION_PATCH)
 set(PROJECT_SOVERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}")
 
+set(USE_CV OFF)
+set(PRINT_CONFIG_MSG OFF)
+
 #------------------------------------------------------
 # Build type
 #------------------------------------------------------
@@ -52,11 +55,13 @@ IF( (NOT mmal_LIBS ) OR (NOT mmalutil_LIBS) OR (NOT mmalcore_LIBS) )
 ENDIF()
 
 #If opencv installed, creates the libraspicam_cv library module
+IF(USE_CV)
 FIND_PACKAGE(OpenCV)
 IF(OpenCV_FOUND)
   include_directories(${OpenCV_INCLUDE_DIRS})
   SET(LIB_COMPONENTS ${LIB_COMPONENTS} ${PROJECT_NAME}_cv)
   SET(PROJECT_CV_CREATED_FLAG "YES")  
+ENDIF()
 ENDIF()
 
 
@@ -190,9 +195,11 @@ IF(CMAKE_COMPILER_IS_GNUCXX OR MINGW)
     set(EXTRA_C_FLAGS_RELEASE "${EXTRA_C_FLAGS_RELEASE} -DNDEBUG")
     set(EXTRA_C_FLAGS_DEBUG "-g3 -O0 -DDEBUG -D_DEBUG -W -Wextra -Wno-return-type")
 
+    IF(PRINT_CONFIG_MSG)
     MESSAGE( STATUS "-------------------------------------------------------------------------------" )
     message( STATUS "GNU COMPILER")
     MESSAGE( STATUS "-------------------------------------------------------------------------------" )
+    ENDIF()
 
 ENDIF	()
 
@@ -223,6 +230,7 @@ ENDIF()
 # ----------------------------------------------------------------------------
 # display status message for important variables
 # ----------------------------------------------------------------------------
+IF(PRINT_CONFIG_MSG)
 message( STATUS )
 MESSAGE( STATUS "-------------------------------------------------------------------------------" )
 message( STATUS "General configuration for ${PROJECT_NAME} ${PROJECT_VERSION}")
@@ -252,3 +260,4 @@ MESSAGE( STATUS )
 MESSAGE( STATUS )
 MESSAGE( STATUS "Change a value with: cmake -D<Variable>=<Value>" )
 MESSAGE( STATUS )
+ENDIF()

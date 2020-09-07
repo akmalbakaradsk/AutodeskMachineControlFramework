@@ -105,5 +105,5 @@ set_target_properties(${PLUGINNAME}
 ### Add dependencies for drivers below
 ###########################################################################################
 if (TARGET libmcdriver_marlin) 
-	add_dependencies (${PLUGINNAME} libmcdriver_marlin)
+	add_dependencies (${PLUGINNAME} libmcdriver_marlin libmcdriver_camera)
 endif()

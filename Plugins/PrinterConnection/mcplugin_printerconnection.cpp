@@ -44,6 +44,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma warning(disable : 4250)
 #endif
 
+#ifdef __linux__
+#include <math.h>
+#endif
+
 using namespace LibMCPlugin::Impl;
 
 

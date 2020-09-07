@@ -179,15 +179,12 @@ namespace AMC {
 		// Wait before sending
 		std::chrono::milliseconds wait_ms(1500);
 		std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now() + wait_ms;
-		std::cout << "Waiting for " << std::to_string(wait_ms.count()) << "ms" << std::endl;
+		if (m_bDebug) std::cout << "Waiting for " << std::to_string(wait_ms.count()) << "ms" << std::endl;
 		while (std::chrono::system_clock::now() < end) {
 				std::string sLineRead = m_pConnection->readline();
-				if (m_bDebug)
-				{
-					std::cout << "RETURN: " << sLineRead << std::endl;
-				}
+				if (m_bDebug) std::cout << "RETURN: " << sLineRead << std::endl;
 		}
-		std::cout << "Done waiting" << std::endl;
+		if (m_bDebug) std::cout << "Done waiting" << std::endl;
 
 		// reset line number
 		std::stringstream sCommand;
@@ -200,11 +197,7 @@ namespace AMC {
 			while (!bAck)
 			{
 				std::string sLineRead = m_pConnection->readline();
-				if (m_bDebug)
-				{
-					std::cout << "RETURN: " << sLineRead << std::endl;
-				}
-
+				if (m_bDebug) std::cout << "RETURN: " << sLineRead << std::endl;
 				bAck = (sLineRead.find("ok N1") != std::string::npos);
 			}
 		}
